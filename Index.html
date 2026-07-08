@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FIMCA — Federation of Indian Emigration Management Councils and Associations</title>
+    <style>
+        /* Premium Dark Mode Variables */
+        :root {
+            --bg-obsidian: #050507;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --text-main: #ffffff;
+            --text-muted: #94a3b8;
+            --fimca-red: #da251d;
+            --glow-red: rgba(218, 37, 29, 0.25);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-obsidian);
+            color: var(--text-main);
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-image: radial-gradient(circle at 50% 0%, rgba(218, 37, 29, 0.04) 0%, transparent 60%);
+            position: relative;
+            /* Premium Custom Cursor Integration */
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="4" fill="%23da251d"/></svg>') 8 8, auto;
+        }
+
+        /* Custom Interactive Cursor for Links and Buttons */
+        a, button, select, input, .file-drop, .nav-pill {
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6" fill="none" stroke="%23da251d" stroke-width="2"/></svg>') 8 8, pointer !important;
+        }
+
+        /* Top Right Integrated Nav Pill */
+        .nav-pill {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 10px 20px;
+            border-radius: 50px;
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+            transition: var(--transition);
+            z-index: 100;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-pill:hover {
+            border-color: var(--fimca-red);
+            background: rgba(218, 37, 29, 0.1);
+            box-shadow: 0 0 15px var(--glow-red);
+        }
+
+        /* Header Hierarchy */
+        header {
+            text-align: center;
+            padding: 6rem 1.5rem 2rem 1.5rem; 
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .logo-ring {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 1.5rem;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+
+        .logo-ring img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        /* ALIGNMENT FIX: Stripped margins and tightened line height */
+        .hero-acronym {
+            font-size: 4rem;
+            font-weight: 900;
+            letter-spacing: -1px;
+            margin-bottom: 0; /* Locked flush to the subtext */
+            line-height: 1;
+            color: var(--fimca-red);
+        }
+
+        /* ALIGNMENT FIX: Pushed slightly up to connect visually with the hero acronym */
+        .hero-fullform {
+            font-size: 1.1rem;
+            font-weight: 400;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            margin-top: 5px; 
+            margin-bottom: 2rem;
+            width: 100%;
+            white-space: nowrap; /* Forces one line on desktop */
+        }
+
+        /* Main Container & Section Titles */
+        main {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 1.5rem 6rem 1.5rem;
+        }
+
+        .section-header-wrapper {
+            text-align: center;
+            margin: 4rem 0 3rem 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--text-main);
+            letter-spacing: -1px;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .mea-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Grid System */
+        .job-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 5rem;
+            align-items: stretch;
+        }
+
+        /* Glass Cards */
+        .glass-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            overflow: hidden;
+            backdrop-filter: blur(12px);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(218, 37, 29, 0.3);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 20px var(--glow-red);
+        }
+
+        .poster-container {
+            width: 100%;
+            background: #000;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .poster-container img {
+            width: 100%;
+            display: block;
+        }
+
+        .card-details {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: space-between;
+        }
+
+        .agency-name { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.25rem; }
+        .license { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 1.5rem; display: block; }
+
+        /* Buttons */
+        .btn-group { display: flex; gap: 0.75rem; }
+        .btn {
+            flex: 1;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: var(--transition);
+            text-align: center;
+            border: 1px solid transparent;
+        }
+
+        .btn-primary { background: var(--text-main); color: var(--bg-obsidian); }
+        .btn-primary:hover { background: var(--fimca-red); color: var(--text-main); box-shadow: 0 0 15px var(--glow-red); }
+        
+        .btn-secondary { background: transparent; color: var(--text-main); border-color: var(--glass-border); }
+        .btn-secondary:hover { background: rgba(255,255,255,0.08); }
+
+        /* About Sections (What/Why FIMCA) */
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 5rem;
+            scroll-margin-top: 100px;
+        }
+
+        .info-card {
+            padding: 3rem;
+            justify-content: flex-start;
+        }
+
+        .info-card h3 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--text-main);
+            letter-spacing: -0.5px;
+        }
+
+        .info-card p {
+            color: var(--text-muted);
+            line-height: 1.7;
+            font-size: 1.05rem;
+        }
+
+        /* Bottom "Catch-All" Form */
+        .catch-all-form {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 4rem 3rem;
+            backdrop-filter: blur(12px);
+        }
+
+        .catch-all-form h2 { font-size: 2.2rem; font-weight: 800; margin-bottom: 1rem; }
+        .catch-all-form p { color: var(--text-muted); font-size: 1.1rem; margin-bottom: 3rem; max-width: 800px; line-height: 1.5; }
+
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+        .form-group { display: flex; flex-direction: column; }
+        .form-group.full { grid-column: span 2; }
+
+        label { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); margin-bottom: 0.5rem; }
+        
+        input, select {
+            width: 100%; height: 50px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px; padding: 0 15px;
+            color: var(--text-main); font-size: 1rem;
+            transition: var(--transition); outline: none;
+        }
+
+        input:focus, select:focus { border-color: var(--fimca-red); box-shadow: 0 0 15px var(--glow-red); background: rgba(0, 0, 0, 0.6); }
+        
+        ::placeholder { color: #475569; font-weight: 400; }
+
+        .file-drop {
+            height: 100px;
+            border: 2px dashed var(--glass-border);
+            border-radius: 8px; display: flex; align-items: center; justify-content: center;
+            color: var(--text-muted); transition: var(--transition);
+        }
+        .file-drop:hover { border-color: var(--fimca-red); color: var(--fimca-red); background: rgba(218, 37, 29, 0.05); }
+
+        /* Universal Modal Styles */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(8px);
+            z-index: 1000; display: flex; align-items: center; justify-content: center;
+            opacity: 0; visibility: hidden; transition: var(--transition);
+        }
+
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+
+        .modal-content {
+            background: #0f0f13; border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px; padding: 3rem; width: 90%; max-width: 500px;
+            text-align: left; transform: scale(0.95); transition: var(--transition);
+            position: relative;
+        }
+
+        .modal-overlay.active .modal-content { transform: scale(1); }
+
+        .close-btn {
+            position: absolute; top: 20px; right: 25px; background: none; border: none;
+            color: var(--text-muted); font-size: 1.5rem;
+        }
+
+        /* Apply Info Box */
+        .contact-box {
+            margin-top: 1.5rem; background: rgba(218, 37, 29, 0.05);
+            border: 1px solid rgba(218, 37, 29, 0.2); border-radius: 12px; padding: 1.5rem; text-align: center;
+        }
+        .contact-box a { color: var(--text-main); text-decoration: none; font-size: 1.2rem; font-weight: 700; display: block; margin: 0.5rem 0 1.5rem 0; }
+
+        /* Agency Info Box */
+        .agency-info-body { margin-top: 1.5rem; color: var(--text-muted); line-height: 1.6; font-size: 0.95rem; }
+        .agency-info-body strong { color: var(--text-main); }
+        .tag-list { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 1rem; }
+        .tag { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; color: var(--text-main); }
+
+        /* Mobile Optimization */
+        @media (max-width: 768px) {
+            .nav-pill { top: 1rem; right: 1rem; left: auto; font-size: 0.8rem; padding: 8px 16px; } 
+            header { padding: 5rem 1rem 1rem 1rem; }
+            .hero-acronym { font-size: 3rem; }
+            .hero-fullform { font-size: 0.95rem; white-space: normal; } /* Allows wrapping on small phone screens */
+            .section-title { font-size: 1.5rem; }
+            .info-grid { grid-template-columns: 1fr; }
+            .info-card { padding: 2rem; }
+            .form-grid { grid-template-columns: 1fr; }
+            .form-group.full { grid-column: 1; }
+            .catch-all-form { padding: 2.5rem 1.5rem; }
+            
+            /* Slide-Up Bottom Sheet for Modals */
+            .modal-overlay { align-items: flex-end; }
+            .modal-content { width: 100%; max-width: 100%; border-radius: 24px 24px 0 0; transform: translateY(100%); padding-bottom: 3rem; }
+            .modal-overlay.active .modal-content { transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Integrated Top Right Navigation -->
+    <a href="#about-fimca" class="nav-pill">What is FIMCA?</a>
+
+    <header>
+        <div class="logo-ring">
+            <img src="Logo.png" alt="FIMCA Logo" onerror="this.style.display='none'">
+        </div>
+        <h1 class="hero-acronym">FIMCA</h1>
+        <h2 class="hero-fullform">Federation of Indian Emigration Management Councils and Associations</h2>
+    </header>
+
+    <main>
+        <div class="section-header-wrapper">
+            <h2 class="section-title">Premium Global Opportunities</h2>
+            <div class="mea-badge">APPROVED BY THE MINISTRY OF EXTERNAL AFFAIRS</div>
+        </div>
+
+        <div class="job-grid">
+            
+            <!-- Job Card 1 -->
+            <div class="glass-card">
+                <div class="poster-container">
+                    <img src="Vira.jpeg" alt="Royal Palace Requirement">
+                </div>
+                <div class="card-details">
+                    <div>
+                        <h3 class="agency-name">Vira International</h3>
+                        <span class="license">LIC: B-0044|BOM|COM|Per|1000+|3|2812|90</span>
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn btn-primary" onclick="openApply('cv@virainternational.com', '022 4056 7777')">Apply</button>
+                        <button class="btn btn-secondary" onclick="openInfo('Vira International', '30+ Years', 'Vira International has been a highly trusted recruitment partner for over 3 decades, bridging the gap between Indian talent and premier overseas employers. They maintain one of the highest visa processing success rates in India.', 'Hospitality, Healthcare, KSA Protocol')">More Info</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Job Card 2 -->
+            <div class="glass-card">
+                <div class="poster-container">
+                    <img src="Global.jpg" alt="Overseas Vacancy">
+                </div>
+                <div class="card-details">
+                    <div>
+                        <h3 class="agency-name">Global Talent Agency</h3>
+                        <span class="license">LIC: B-1234|DEL|COM|Per|1000+|5|9999|21</span>
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn btn-primary" onclick="openApply('apply@globaltalent.in', '011 2345 6789')">Apply</button>
+                        <button class="btn btn-secondary" onclick="openInfo('Global Talent Agency', '15 Years', 'Specializing in heavy engineering and construction mandates across the GCC. Known for completely free recruitment drives and excellent post-deployment candidate welfare programs.', 'Construction, Engineering, Logistics')">More Info</button>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="info-grid" id="about-fimca">
+            <div class="glass-card info-card">
+                <h3>What is FIMCA?</h3>
+                <p>The Federation of Indian Emigration Management Councils and Associations (FIMCA) serves as the peak national protective body representing authorized, premium recruitment platforms operating inside India. We anchor transparent, secure, and ethical global mobility pipelines for professionals worldwide.</p>
+            </div>
+            <div class="glass-card info-card">
+                <h3>Why FIMCA?</h3>
+                <p>Zero fraud vectors. Every single partner agency carrying the FIMCA credential holds strict active clearance protocols from the Ministry of External Affairs of India. Your safety, salary parity, and contractual reality are fully insulated and guaranteed.</p>
+            </div>
+        </div>
+
+        <div class="catch-all-form" id="resume-section">
+            <h2>Can't find a job?</h2>
+            <p>Add your details here and our network of MEA-approved agencies will find the right fit for you.</p>
+
+            <form class="form-grid" onsubmit="event.preventDefault(); alert('Profile securely submitted to FIMCA registry.');">
+                <div class="form-group">
+                    <label>Full Legal Name</label>
+                    <input type="text" required placeholder="Enter your full name">
+                </div>
+                <div class="form-group">
+                    <label>Age</label>
+                    <input type="number" required placeholder="Enter your age">
+                </div>
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" required placeholder="Enter your mobile number">
+                </div>
+                <div class="form-group">
+                    <label>Current Location</label>
+                    <input type="text" required placeholder="Enter your current city">
+                </div>
+                <div class="form-group full">
+                    <label>Primary Industry</label>
+                    <select required>
+                        <option value="" disabled selected>Select an industry...</option>
+                        <option>Hospitality & Catering</option>
+                        <option>Healthcare & Nursing</option>
+                        <option>Engineering & Construction</option>
+                        <option>IT & Operations</option>
+                    </select>
+                </div>
+                <div class="form-group full">
+                    <label>Resume (PDF or DOC)</label>
+                    <div class="file-drop" onclick="document.getElementById('file-input').click()">
+                        <span>Tap to Upload Resume</span>
+                        <input type="file" id="file-input" style="display:none" accept=".pdf,.doc,.docx" required>
+                    </div>
+                </div>
+                <div class="form-group full" style="margin-top: 1rem;">
+                    <button type="submit" class="btn btn-primary" style="height: 54px;">Submit My Details</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <!-- APPLY Modal -->
+    <div class="modal-overlay" id="applyModal">
+        <div class="modal-content" style="text-align: center;">
+            <button class="close-btn" onclick="closeAllModals()">×</button>
+            <h3 style="font-size: 1.5rem; margin-bottom: 5px;">Secure Application</h3>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">Submit your CV directly to the verified agency.</p>
+            
+            <div class="contact-box">
+                <span style="font-size: 0.8rem; color: var(--fimca-red); font-weight: 700; text-transform: uppercase;">Email CV To</span>
+                <a href="#" id="modalEmail">loading...</a>
+                
+                <span style="font-size: 0.8rem; color: var(--fimca-red); font-weight: 700; text-transform: uppercase;">Direct Line</span>
+                <a href="#" id="modalPhone">loading...</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- MORE INFO Modal -->
+    <div class="modal-overlay" id="infoModal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeAllModals()">×</button>
+            <h3 id="infoTitle" style="font-size: 1.5rem; color: var(--text-main);">Agency Name</h3>
+            <p style="color: var(--fimca-red); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; margin-top: 5px;" id="infoYears">Loading...</p>
+            
+            <div class="agency-info-body">
+                <p id="infoDesc">Agency description will load here.</p>
+                <div style="margin-top: 1.5rem;">
+                    <strong>Core Specializations:</strong>
+                    <div class="tag-list" id="infoTags"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openApply(email, phone) {
+            document.getElementById('modalEmail').innerText = email;
+            document.getElementById('modalEmail').href = "mailto:" + email;
+            document.getElementById('modalPhone').innerText = phone;
+            document.getElementById('modalPhone').href = "tel:" + phone;
+            document.getElementById('applyModal').classList.add('active');
+        }
+
+        function openInfo(name, years, description, tagsString) {
+            document.getElementById('infoTitle').innerText = name;
+            document.getElementById('infoYears').innerText = "Established Trust: " + years;
+            document.getElementById('infoDesc').innerText = description;
+            
+            const tagContainer = document.getElementById('infoTags');
+            tagContainer.innerHTML = '';
+            const tags = tagsString.split(',');
+            tags.forEach(tag => {
+                let span = document.createElement('span');
+                span.className = 'tag';
+                span.innerText = tag.trim();
+                tagContainer.appendChild(span);
+            });
+
+            document.getElementById('infoModal').classList.add('active');
+        }
+
+        function closeAllModals() {
+            document.querySelectorAll('.modal-overlay').forEach(el => el.classList.remove('active'));
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', function(e) {
+                if (e.target === this) closeAllModals();
+            });
+        });
+    </script>
+</body>
+</html>
